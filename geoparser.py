@@ -40,7 +40,7 @@ def logparse(LOGPATH, INFLUXHOST, INFLUXPORT, INFLUXDBDB, INFLUXUSER, INFLUXUSER
                 time.sleep(1)
                 FILE.seek(WHERE)
             else:
-              if "\n" in LINE:  
+              if "\s" in LINE:  
                 IP = LINE.split("\s")[1]
                 if IP:
                     INFO = GI.record_by_addr(IP)
