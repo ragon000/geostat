@@ -45,6 +45,7 @@ docker run -e INFLUX_HOST=<your influx hostname> \
            -e INFLUX_DB=<your influx db (can be not set for name nginx-geoip)> \ 
            -e INFLUX_USER=<influx login> \ 
            -e INFLUX_PW=<influx password> \
+           -v "<NGINX-access.log>:/var/log/nginx/access.log" \
            ragon000/geostat
 ```
 After first metrics will go to the InfluxDB you can create nice Grafana dashboards.
