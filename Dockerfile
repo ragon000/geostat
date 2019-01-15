@@ -12,7 +12,7 @@ RUN tar xvf GeoLite2-City.tar.gz
 RUN sh -c "mv GeoLite2-City_* Geolite2"
 RUN sh -c "mv Geolite2/GeoLite2-City.mmdb GeoLiteCity.dat"
 RUN sh -c "rm GeoLite2*"
-RUN rm /usr/local/lib/python3.7/Geohash/__init__.py
+RUN rm /usr/local/lib/python3.7/site-packages/Geohash/__init__.py
 
 COPY . .
 
