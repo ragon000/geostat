@@ -17,4 +17,9 @@ measurement = geodata
 
 EOF
 
+echo Config Written, sleeping 5 seconds
+
+sleep 5
+
+echo Starting geoparser.py
 python geoparser.py
