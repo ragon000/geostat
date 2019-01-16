@@ -43,7 +43,10 @@ def logparse(LOGPATH, INFLUXHOST, INFLUXPORT, INFLUXDBDB, INFLUXUSER, INFLUXUSER
               if " " in LINE:  
                 IP = LINE.split(" ")[1]
                 if IP:
-                    INFO = GI.city(IP)
+                    try: 
+                      INFO = GI.city(IP)
+                    except:
+                      INFO = None
                     if INFO is not None:
                         HASH = Geohash.encode(INFO.location.latitude, INFO.location.longitude) # NOQA
                         COUNT['count'] = 1
