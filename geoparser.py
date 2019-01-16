@@ -57,10 +57,12 @@ def logparse(LOGPATH, INFLUXHOST, INFLUXPORT, INFLUXDBDB, INFLUXUSER, INFLUXUSER
 
                         # Sending json data to InfluxDB
                         CLIENT.write_points(METRICS)
+                        print(METRICS)
 
 
 def main():
     # Preparing for reading config file
+    print("Geoparser starting")
     PWD = os.path.abspath(os.path.dirname(os.path.realpath(__file__)))
     CONFIG = configparser.ConfigParser()
     CONFIG.read('%s/settings.ini' % PWD)
@@ -73,6 +75,7 @@ def main():
     INFLUXUSER = CONFIG.get('INFLUXDB', 'username')
     MEASUREMENT = CONFIG.get('INFLUXDB', 'measurement')
     INFLUXUSERPASS = CONFIG.get('INFLUXDB', 'password')
+    print("config loaded")
 
     # Parsing log file and sending metrics to Influxdb
     while True:
