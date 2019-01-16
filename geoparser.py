@@ -7,7 +7,7 @@ import os
 import re
 import sys
 import time
-import pygeoip
+import geoip2.database
 import Geohash
 import configparser
 from influxdb import InfluxDBClient
@@ -22,7 +22,7 @@ def logparse(LOGPATH, INFLUXHOST, INFLUXPORT, INFLUXDBDB, INFLUXUSER, INFLUXUSER
     CLIENT = InfluxDBClient(host=INFLUXHOST, port=INFLUXPORT,
                             username=INFLUXUSER, password=INFLUXUSERPASS, database=INFLUXDBDB) # NOQA
     GETIP = r"^(?P<remote_host>[0-9]{,3}\.[0-9]{,3}\.[0-9]{,3}\.[0-9]{,3})"
-    GI = pygeoip.GeoIP('GeoLiteCity.dat', pygeoip.const.MEMORY_CACHE)
+    GI = geoip2.database.Reader('GeoLiteCity.dat')
 
     # Main loop to parse access.log file in tailf style with sending metrcs
     with open(LOGPATH, "r") as FILE:
@@ -43,13 +43,13 @@ def logparse(LOGPATH, INFLUXHOST, INFLUXPORT, INFLUXDBDB, INFLUXUSER, INFLUXUSER
               if " " in LINE:  
                 IP = LINE.split(" ")[1]
                 if IP:
-                    INFO = GI.record_by_addr(IP)
+                    INFO = GI.city(IP)
                     if INFO is not None:
-                        HASH = Geohash.encode(INFO['latitude'], INFO['longitude']) # NOQA
+                        HASH = Geohash.encode(INFO.location.latitude, INFO.location.longitude) # NOQA
                         COUNT['count'] = 1
                         GEOHASH['geohash'] = HASH
                         GEOHASH['host'] = HOSTNAME
-                        GEOHASH['country_code'] = INFO['country_code']
+                        GEOHASH['country_code'] = INFO.location.name
                         IPS['tags'] = GEOHASH
                         IPS['fields'] = COUNT
                         IPS['measurement'] = MEASUREMENT
