@@ -8,7 +8,7 @@ import re
 import sys
 import time
 import geoip2.database
-import Geohash
+import geohash
 import configparser
 from influxdb import InfluxDBClient
 
