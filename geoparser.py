@@ -48,7 +48,7 @@ def logparse(LOGPATH, INFLUXHOST, INFLUXPORT, INFLUXDBDB, INFLUXUSER, INFLUXUSER
                     except:
                       INFO = None
                     if INFO is not None:
-                        HASH = Geohash.encode(INFO.location.latitude, INFO.location.longitude) # NOQA
+                        HASH = geohash.encode(INFO.location.latitude, INFO.location.longitude) # NOQA
                         COUNT['count'] = 1
                         GEOHASH['geohash'] = HASH
                         GEOHASH['host'] = HOSTNAME
