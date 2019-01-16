@@ -8,7 +8,7 @@ logpath = /var/log/nginx/access.log
 host = ${INFLUX_HOST:-influx}
 port = ${INFLUX_PORT:-8086}
 
-database = ${INFLUX_DB:-nginx-geoip}
+database = ${INFLUX_DB:-geoip}
 
 username = "$INFLUX_USER"
 password = "$INFLUX_PW"
